@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stop Watch</title>
+  <style>
+    body {
+      font-family: "Arial", sans-serif;
+      background: linear-gradient(135deg, #14b6c2,#3d9cb7, #08485a);
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1#display {
+      font-size: 60px;
+      font-weight: bold;
+      color: #045465;
+      background: #fff;
+      padding: 20px 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      font-family: "Courier New", monospace;
+      margin-bottom: 30px;
+    }
+
+    button {
+      background: #084148;
+      color: rgb(20, 216, 226);
+      border: none;
+      padding: 12px 25px;
+      margin: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: 0.3s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+
+    button:nth-child(2) { 
+      background: #073d47;
+    }
+
+    button:nth-child(3) { 
+      background: #074151;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="display">00:00:00</h1>
+
+  <div>
+    <button onclick="start()">Start</button>
+    <button onclick="stop()">Stop</button>
+    <button onclick="reset()">Reset</button>
+  </div>
+
+  <script>
+    let sec = 0;
+    let timer;
+
+    function start() {
+      if (!timer) {
+        timer = setInterval(function() {
+          sec++;
+          let h = Math.floor(sec / 3600);
+          let m = Math.floor((sec % 3600) / 60);
+          let s = sec % 60;
+
+         
+          let time = 
+            (h < 10 ? "0" + h : h) + ":" +
+            (m < 10 ? "0" + m : m) + ":" +
+            (s < 10 ? "0" + s : s);
+
+          document.getElementById("display").innerText = time;
+        }, 1000);
+      }
+    }
+
+    function stop() {
+      clearInterval(timer);
+      timer = null;
+    }
+
+    function reset() {
+      clearInterval(timer);
+      timer = null;
+      sec = 0;
+      document.getElementById("display").innerText = "00:00:00";
+    }
+  </script>
+</body>
+</html>
